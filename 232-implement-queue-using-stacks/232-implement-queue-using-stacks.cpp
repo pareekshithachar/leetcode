@@ -7,24 +7,23 @@ public:
     }
     
     void push(int x) {
-        while(true){
-            if(st2.empty()) break;
-            else{
+        while(!st2.empty()){
+           
+           
                 st1.push(st2.top());
                 st2.pop();
-            }
+            
             
             
         }
         st1.push(x);
-        while(true){
+        while(!st1.empty()){
            
-                if(st1.empty()){
-                break;
-            } else{
+                
+             
                 st2.push(st1.top());
                 st1.pop();
-            }
+            
         }
     }
     
