@@ -24,14 +24,7 @@ public:
         st.push({price,i});
         i++;
         return ans;
-        // while(!st.empty() && st.top()<=price) st.pop();
-        // if(st.empty()) ans=i+1;
-        // else{
-        //     ans= i-st.top();
-        // }
-        // st.push(price);
-        // i++;
-        // return ans;
+       
     }
 };
 
