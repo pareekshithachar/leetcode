@@ -4,19 +4,19 @@ public:
         for(int x = 0;x<9;x++){
             if(board[x][j] == num) return false;
             if(board[i][x] == num) return false;
-            if(board[3*(i/3) + x/3][3*(j/3)+x%3] == num) return false;
         }
-        // cout<<i<<" "<<j<<" ";
-        // i = 3 *(i/3);
-        // j = 3 *(j/3);
-        // cout<<i<<" "<<j<<endl;
-        // int tempi=i;
-        // int tempj=j;
-        // for(i;i<tempi+3;i++){
-        //     for(j;j<tempj+3;j++){
-        //         if(board[i][j] ==  num)return false;
-        //     }
-        // }
+        cout<<i<<" "<<j<<" ";
+        i = 3 *(i/3);
+        j = 3 *(j/3);
+        cout<<i<<" "<<j<<endl;
+        int tempi=i;
+        int tempj=j;
+        for(i;i<tempi+3;i++){
+            for(j;j<tempj+3;j++){
+                if(board[i][j] ==  num)return false;
+            }
+            j=tempj;
+        }
         return true;
     }
     bool solve(vector<vector<char>>& board){
