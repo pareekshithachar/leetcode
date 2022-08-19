@@ -1,18 +1,15 @@
 class Solution {
 public:
-    int solve(vector<int>& cost,int index,vector<int>&dp){
-        if(index  >= cost.size()){
-            return 0;
-        }
-        if(dp[index]!=-1){
-            return dp[index];
-        }
-        int o1 = cost[index] + solve(cost,index+1,dp);
-        int o2= cost[index] + solve(cost,index + 2,dp );
-        return dp[index] = min(o1,o2);
+    int solve(vector<int>& cost){
+        vector<int>dp(cost.size() +1);
+        dp[0] = cost[0];
+        dp[1] = cost[1];
+        for(int i =2 ;i<cost.size();i++){
+            dp[i] = cost[i] + min(dp[i-1],dp[i-2]);
+        } 
+        return min(dp[cost.size()-1],dp[cost.size()-2]);
     }
     int minCostClimbingStairs(vector<int>& cost) {
-        vector<int>dp(cost.size()+1,-1);
-        return min(solve(cost,0,dp),solve(cost,1,dp));
+        return solve(cost);
     }
 };
