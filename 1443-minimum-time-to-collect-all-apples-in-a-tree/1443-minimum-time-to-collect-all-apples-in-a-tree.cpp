@@ -1,31 +1,28 @@
 class Solution {
 public:
-    int dfs(int src,int total,vector<vector<int>>&edge,vector<int>&vis,vector<bool>&hasApple){
-        
-        vis[src]=true;
-        int children=0;
-        
-        for(auto ele:edge[src]){
-            if(!vis[ele])
-                children+=dfs(ele,2,edge,vis,hasApple);
+    vector<vector<int>>adj;
+    int ans=0;
+    int dfs(int node,int parent,vector<bool>&apple){
+        int c=0;
+        for(int child:adj[node]){
+            if(child==parent){
+                continue;
+            }
+            c+=max((int)apple[child],dfs(child,node,apple));
         }
-        
-        if(!children && !hasApple[src])return 0;
-        return children+total;
+        ans+=c*2;
+        if(c>0){
+            return 1;
+        }
+        return 0;
     }
-    
-    
     int minTime(int n, vector<vector<int>>& edges, vector<bool>& hasApple) {
-        
-        vector<vector<int>>edge(n);
-        
+        adj.resize(n);
         for(int i=0;i<edges.size();i++){
-            edge[edges[i][0]].push_back(edges[i][1]);
-            edge[edges[i][1]].push_back(edges[i][0]);
+            adj[edges[i][0]].push_back(edges[i][1]);
+            adj[edges[i][1]].push_back(edges[i][0]);
         }
-        
-        vector<int>vis(n);
-        
-        return dfs(0,0,edge,vis,hasApple);
+        dfs(0,-1,hasApple);
+        return ans;
     }
 };
