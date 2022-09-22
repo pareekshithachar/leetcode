@@ -1,26 +1,23 @@
 class Solution {
 public:
     vector<vector<int>>res;
-    set<vector<int>> check;
+ 
     void solve(int k, int tempk,int n, set<int> s, int sum,vector<int>ans, int x){
         if(tempk == k) {
             if(sum == n){
-                sort(ans.begin(),ans.end());
-                if(!check.count(ans))res.push_back(ans);
-                check.insert(ans);
-                
-                
+                res.push_back(ans);
+                  
             }
             return;
         }
         for(int i=x+1;i<=9;i++){
             
-            if(!s.count(i) && tempk != k){
-                s.insert(i);
+            if(tempk != k){
+                
                 ans.push_back(i);
                 solve(k,tempk+1,n,s,sum + i,ans, i);
                 ans.pop_back();
-                s.erase(i); 
+                
             }
         }
         return;
