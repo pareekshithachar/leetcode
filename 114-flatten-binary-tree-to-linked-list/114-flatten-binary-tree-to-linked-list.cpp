@@ -11,34 +11,15 @@
  */
 class Solution {
 public:
-    void inorder(TreeNode* root, vector<int>&in){
-        if(root == NULL) return;
-        in.push_back(root->val);
-        inorder(root->left,in);
-        inorder(root->right,in);
-        
-    }
+    TreeNode* temp = NULL;
+    
     void flatten(TreeNode* root) {
-        vector<int>in;
-        inorder(root,in);
+        if(!root) return;
         
-        // TreeNode* head = new TreeNode(in[0]);
-        if(root == NULL){
-            return;
-        }
-        TreeNode* cur= root;
-        for(auto x : in){
-            cout<<x<<" ";
-        }
-        for(int i=1;i<in.size();i++){
-            TreeNode* temp = new TreeNode(in[i]);
-            
-            cur-> right = temp;
-            cur->left = NULL;
-            cur = temp;
-        }
-        cur->right = NULL;
-        cur->left = NULL;
-        
+        flatten(root->right);
+        flatten(root->left);
+        root->right = temp;
+        root->left = NULL;
+        temp = root;
     }
 };
