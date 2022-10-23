@@ -24,6 +24,35 @@ class Solution
         
         return dp[cur][prev+1]=max(exclude,include);
     }
+    //5 7 8 4
+    int findidx(int a[], vector<int>&path, int i){
+        int low = 0, high = path.size()-1;
+        int ans = 0;
+        while(low<high){
+            int mid = low +(high-low)/2;
+            if(path[mid] > a[i]){
+                ans = mid;
+                high = mid-1;
+            }else{
+                
+                low = mid+1;
+            }
+            
+        }
+        return ans;
+    }
+    int solveop(int n, int a[], vector<int>&path){
+        
+        for(int i=0;i<n;i++){
+            if(i == 0 || path[path.size() - 1] > a[i]){
+                path.push_back(a[i]);
+            }else{
+                int x = findidx(a,path,i);
+                path[x] = a[i];
+            }
+        }
+        return path.size();
+    }
     int longestSubsequence(int n, int a[])
     {
        // your code here
