@@ -28,13 +28,12 @@ class Solution
     int findidx(int a[], vector<int>&path, int i){
         int low = 0, high = path.size()-1;
         int ans = 0;
-        while(low<high){
+        while(low<=high){
             int mid = low +(high-low)/2;
             if(path[mid] > a[i]){
                 ans = mid;
                 high = mid-1;
             }else{
-                
                 low = mid+1;
             }
             
@@ -44,7 +43,7 @@ class Solution
     int solveop(int n, int a[], vector<int>&path){
         
         for(int i=0;i<n;i++){
-            if(i == 0 || path[path.size() - 1] > a[i]){
+            if(i == 0 || path[path.size() - 1] < a[i]){
                 path.push_back(a[i]);
             }else{
                 int x = findidx(a,path,i);
@@ -57,8 +56,9 @@ class Solution
     {
        // your code here
        
-       vector<vector<int>>dp(n,vector<int>(n+1,-1));
-       return solve(n,a,0,-1,dp);
+    //   vector<vector<int>>dp(n,vector<int>(n+1,-1));
+        vector<int>path;
+       return solveop(n,a,path);
     }
 };
 
