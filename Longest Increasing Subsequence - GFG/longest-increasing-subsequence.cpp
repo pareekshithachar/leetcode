@@ -28,7 +28,7 @@ class Solution
     int solveop(int n, int a[], vector<int>&path){
         
         for(int i=0;i<n;i++){
-            if(i == 0 || path[path.size() - 1] < a[i]){
+            if(i == 0 || path.back() < a[i]){
                 path.push_back(a[i]);
             }else{
                 int x = findidx(a,path,i);
