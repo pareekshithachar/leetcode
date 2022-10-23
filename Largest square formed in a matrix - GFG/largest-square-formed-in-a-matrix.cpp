@@ -30,11 +30,37 @@ public:
         
         return dp[i][j] = 0;
     }
+    int solvetab(int n, int m, vector<vector<int>>&mat,int &maxi){
+        vector<vector<int>>dp(n+1,vector<int>(m+1,0));
+        
+       
+        for(int i =n-1;i>=0;i--){
+            for(int j = m-1;j>= 0;j--){
+                if(mat[i][j] == 1){
+                    int opt1 = 0;
+                    
+                    opt1 = dp[i][j+1];
+                    
+                    int opt2 = 0;
+                    
+                    opt2 = dp[i+1][j];
+                    
+                    int opt3 = 0;
+                    
+                    opt3 = dp[i+1][j+1];
+                    
+                    dp[i][j] = min({opt1,opt2,opt3}) +1;
+                    maxi= max(dp[i][j] ,maxi);
+                }
+            }
+        }
+        
+        return dp[0][0];
+    }
     int maxSquare(int n, int m, vector<vector<int>> mat){
         // code here
-        vector<vector<int>>dp(n,vector<int>(m,-1));
         int maxi =0;
-        solve(0,0,mat,maxi,dp);
+        solvetab(n,m,mat,maxi);
         return maxi;
         
     }
