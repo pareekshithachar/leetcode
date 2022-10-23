@@ -9,22 +9,7 @@ class Solution
 {
     public:
 
-    //Function to find length of longest increasing subsequence.
-    int solve(int n, int a[], int cur, int prev,vector<vector<int>>&dp){
-        
-        if(cur>=n){
-            return 0;
-        }
-        if(dp[cur][prev+1] != -1) return dp[cur][prev+1];
-        int include = 0;
-        if(prev  == -1 || a[prev]<a[cur]){
-            include = 1 + solve(n,a,cur+1,cur,dp);
-        }
-        int exclude = solve(n,a,cur+1,prev,dp);
-        
-        return dp[cur][prev+1]=max(exclude,include);
-    }
-    //5 7 8 4
+
     int findidx(int a[], vector<int>&path, int i){
         int low = 0, high = path.size()-1;
         int ans = 0;
