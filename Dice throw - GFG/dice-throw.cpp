@@ -38,7 +38,7 @@ class Solution {
             }
             prev = cur;
         }
-        return prev[t];
+        return cur[t];
     }
     long long noOfWays(int M , int N , int X) {
         // code here
