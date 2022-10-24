@@ -21,20 +21,23 @@ public:
     }
     int solvetab(int n, int arr[], int sum){
         vector<vector<int>>dp(n+1, vector<int>(sum+1,0));
+        vector<int>cur(sum+1,0);
+        vector<int>next(sum+1,0);
         for(int i =0; i<=n;i++){
-            dp[i][0] = 1;
+            next[0] = 1;
             
         }
         for(int i = n-1;i>=0;i--){
             for(int s = 1; s <= sum; s++){
                 int include = 0;
-                if(s-arr[i] >= 0) include = dp[i+1][s-arr[i]];
-                int exclude = dp[i+1][s];
+                if(s-arr[i] >= 0) include = next[s-arr[i]];
+                int exclude = next[s];
                 
-               dp[i][s] = include || exclude;    
+               cur[s] = include || exclude;    
             }
+            next = cur;
         }
-        return dp[0][sum];
+        return next[sum];
     }
     int equalPartition(int N, int arr[])
     {
