@@ -19,6 +19,23 @@ public:
         
         return dp[idx][sum] = include || exclude;
     }
+    int solvetab(int n, int arr[], int sum){
+        vector<vector<int>>dp(n+1, vector<int>(sum+1,0));
+        for(int i =0; i<=n;i++){
+            dp[i][0] = 1;
+            
+        }
+        for(int i = n-1;i>=0;i--){
+            for(int s = 1; s <= sum; s++){
+                int include = 0;
+                if(s-arr[i] >= 0) include = dp[i+1][s-arr[i]];
+                int exclude = dp[i+1][s];
+                
+               dp[i][s] = include || exclude;    
+            }
+        }
+        return dp[0][sum];
+    }
     int equalPartition(int N, int arr[])
     {
         // code here
@@ -32,7 +49,7 @@ public:
         sum/=2;
         
         vector<vector<int>>dp(N, vector<int>(sum+1,-1));
-        return solve(N,arr, sum,0,dp);
+        return solvetab(N,arr, sum);
     }
 };
 
