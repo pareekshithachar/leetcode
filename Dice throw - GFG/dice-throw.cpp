@@ -22,22 +22,23 @@ class Solution {
     }
     long long solvetab(long long  f, long long  d, long long  t){
         vector<vector<long long>>dp(d+1, vector<long long>(t+1,0));
-        dp[0][0] = 1;
-        vector<int>cur(t+1,0);
-        vector<int>prev(t+1,0);
-
+        
+        vector<long long>cur(t+1,0);
+        vector<long long>prev(t+1,0);
+        prev[0] = 1;
         
         for(int i=1; i<=d;i++){
             for(int j = 1;j<=t;j++){
                 long long  ans = 0;
                 for(long long  face = 1; face<=f;face++){
-                    if(j-face >= 0) ans += dp[i-1][j-face];
+                    if(j-face >= 0) ans += prev[j-face];
                     
                 }
-                dp[i][j] = ans;
+                cur[j] = ans;
             }
+            prev = cur;
         }
-        return dp[d][t];
+        return prev[t];
     }
     long long noOfWays(int M , int N , int X) {
         // code here
