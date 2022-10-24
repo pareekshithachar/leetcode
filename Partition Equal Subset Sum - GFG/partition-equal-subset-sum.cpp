@@ -23,10 +23,10 @@ public:
         vector<vector<int>>dp(n+1, vector<int>(sum+1,0));
         vector<int>cur(sum+1,0);
         vector<int>next(sum+1,0);
-        for(int i =0; i<=n;i++){
-            next[0] = 1;
+
+    next[0] = 1;
             
-        }
+        
         for(int i = n-1;i>=0;i--){
             for(int s = 1; s <= sum; s++){
                 int include = 0;
