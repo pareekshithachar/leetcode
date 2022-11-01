@@ -11,7 +11,7 @@ class Solution{
 public:
     vector<int> nextPermutation(int N, vector<int> A){
         // code here
-        int i,j;
+    int i,j=N-1;
     int n = A.size();
     for(i = n - 2;i >= 0;i --)
     {
