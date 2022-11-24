@@ -9,41 +9,30 @@ using namespace std;
 
 class Solution{   
 public:
-    // int solve(int idx, int d,int a[]){
-    //     if(idx < 0){
-    //         return 0;
-    //     }
-    //     int ans = 0;
-    //     for(int j = idx -1 ;j>=0;j--){
-    //         if(a[idx] - a[j] == d){
-    //             ans = max(ans,1 + solve(j,d,a));
-    //         }
-    //     }
-    //     return ans;
-    // }
-    int solve(int idx, int d, int a[]){
-        int pre = a[idx];
-        int ans = 0;
-        for(int i = idx -1;i>=0;i--){
-            if(pre - a[i] == d){
-                ans++;
-                pre = a[i];
+    int solve(int nums[], int i, int d){
+        int count = 1;
+        int prev = nums[i];
+        i--;
+        while(i >= 0){
+            if(prev - nums[i] == d){
+                count++;
+                prev = nums[i];
             }
+            i--;
         }
-        return ans;
+        return count;
     }
     int lengthOfLongestAP(int A[], int n) {
         // code here
-        if(n<=2) return n;
-        int ans = 0;
-        for(int i=0;i<n;i++){
+        int count = 1;
+        for(int i =0;i<n-1;i++){
             for(int j = i+1;j<n;j++){
-                ans = max(ans, 2 + solve(i, A[j] - A[i], A));
+                int d = A[j] - A[i];
+                count = max(count, 1 + solve(A,i,d));
             }
         }
-        return ans;
+        return count;
     }
-    
 };
 
 //{ Driver Code Starts.
