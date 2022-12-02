@@ -12,7 +12,7 @@ class Solution{
 public:
     int small(vector<int>&num, int x){
         int l = 0, h = num.size()-1;
-        while(l<=h){
+        while(l<h){
             int mid = l+(h-l)/2;
             if(num[mid] <= x){
                 l= mid+1;
@@ -34,7 +34,7 @@ public:
             int count =0;
             
             for(int i =0;i<R;i++){
-                count+= small(matrix[i],mid);
+                count+= upper_bound(matrix[i].begin(),matrix[i].end(),mid) - matrix[i].begin();
             }
             
             if(count <= idx){
