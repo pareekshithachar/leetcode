@@ -12,17 +12,14 @@ class Solution{
     long long maxSubarraySum(int arr[], int n){
         
         // Your code here
-        long long ans =INT_MIN;
-        long long sum =0;
+        int sum =0;
+        int ans = INT_MIN;
         for(int i =0;i<n;i++){
             sum+= arr[i];
-            if(sum > 0){
-                ans = max(ans,sum);
-            }else{
-                ans = max(ans,sum);
-                sum =0;
-            }
+            ans = max(ans,sum);
+            if(sum < 0) sum = 0;
         }
+        
         return ans;
     }
 };
