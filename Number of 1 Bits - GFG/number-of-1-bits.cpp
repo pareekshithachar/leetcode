@@ -9,8 +9,8 @@ class Solution {
         // Write Your Code here
         int count = 0;
         while(N > 0){
-            if(N & 1) count++;
-            N>>=1;
+            N = N & (N-1);
+            count++;
         }
         return count;
     }
