@@ -29,8 +29,8 @@ public:
         ans = local;
 
         for(int i = 0,j=windsize;j<n;j++,i++){
-            if(arr[i] > k ) local--;
-            if(arr[j] > k) local++;
+            if(arr[i] <= k ) local++;
+            if(arr[j] <= k) local--;
             
             ans = min(ans,local);
         }
