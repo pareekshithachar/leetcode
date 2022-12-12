@@ -13,20 +13,24 @@ class Solution{
     int findLongestConseqSubseq(int arr[], int n)
     {
       //Your code here
+      set<int>st;
+      
+      for(int i =0;i<n;i++){
+          st.insert(arr[i]);
+      }
       int ans = INT_MIN;
-      int count =1;
-      sort(arr,arr+n);
-      for(int i =0;i<n-1;i++){
-          if(arr[i] == arr[i+1]) continue;
+      
+      for(int i =0; i<n;i++){
+          if(st.count(arr[i] - 1)) continue;
           
-          if(arr[i] + 1 == arr[i+1]) count++;
-          else{
-              ans = max(ans,count);
-              count =1;
+          int j = arr[i];
+          while(st.count(j)){
+              j++;
           }
           
+          ans = max(ans, j - arr[i]);
       }
-      return max(ans,count);
+      return ans;
     }
 };
 
