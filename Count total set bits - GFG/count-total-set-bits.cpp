@@ -23,7 +23,9 @@ class Solution{
     {
         // Your logic here
         if(n == 0) return 0;
-        int x = powerof2(n);
+        // int x = powerof2(n);
+        
+        int x = log(n)/log(2);
         int ans  = x*(1<<(x-1)) + (n - (1<<x) + 1) + countSetBits(n-(1<<x));
         return ans;
     }
