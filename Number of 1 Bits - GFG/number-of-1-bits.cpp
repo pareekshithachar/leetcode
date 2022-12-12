@@ -9,7 +9,7 @@ class Solution {
         // Write Your Code here
         int count = 0;
         while(N > 0){
-            N = N & (N-1);
+            N = N - (N&-N);
             count++;
         }
         return count;
