@@ -15,7 +15,7 @@ class Solution
         if(k == 1) return 1;
         if(dp[n][k] != -1) return dp[n][k];
         int ans = INT_MAX;
-        for(int i = k;i>0;i--){
+        for(int i = k-1;i>0;i--){
             int v1 = solve(n-1,i-1);
             int v2 = solve(n, k-i);
             
