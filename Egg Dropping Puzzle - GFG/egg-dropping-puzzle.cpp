@@ -8,31 +8,29 @@ class Solution
     public:
     //Function to find minimum number of attempts needed in 
     //order to find the critical floor.
+    vector<vector<int>>dp;
+    int solve(int n, int k){
+        if(n == 1) return k;
+        if(k == 0) return 0;
+        if(k == 1) return 1;
+        if(dp[n][k] != -1) return dp[n][k];
+        int ans = INT_MAX;
+        for(int i = k;i>0;i--){
+            int v1 = solve(n-1,i-1);
+            int v2 = solve(n, k-i);
+            
+            ans = min(ans, max(v1,v2));
+        }
+        return dp[n][k] = ans + 1;
+        
+        
+    }
     int eggDrop(int n, int k) 
     {
         // your code here
-        vector<vector<int>>dp(n+1,vector<int>(k+1,0));
-        for(int i = 1;i <= n;i++){
-            for(int j = 1; j<= k;j++){
-                if(i == 1){
-                    dp[i][j] = j;
-                }else if(j == 1){
-                    dp[i][j] = 1;
-                }else{
-                    int ans = INT_MAX;
-                    for(int egs = j-1, egb = 0; egs>=0;egs--,egb++){
-                        int v1 = dp[i][egs];
-                        int v2 = dp[i-1][egb];
-                        int val = max(v1,v2);
-                        ans = min(ans,val);
-                    }
-                    dp[i][j] = ans + 1;
-                    
-                    
-                }
-            }
-        }
-        return dp[n][k];
+        dp.resize(n+1,vector<int>(k+1,-1));
+        return solve(n,k);
+        
     }
 };
 
