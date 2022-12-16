@@ -9,45 +9,48 @@ using namespace std;
 
 class Solution{
     public:
-    
-    void dfs(unordered_map<int,list<int>>&mp,unordered_map<int,int>&vis,vector<int>&temp, int node){
-        if(vis[node]) return;
-        vis[node]= 1;
+    void dfs( unordered_map<int, list<int>> &mp, int node,int vis[26],vector<int>&temp){
+        vis[node] = 1;
+        
         for(auto x : mp[node]){
-            dfs(mp,vis,temp,x);
+            if(!vis[x]){
+                dfs(mp,x,vis,temp);
+            }
         }
         temp.insert(temp.begin(),node);
     }
-    string findOrder(string dic[], int N, int K) {
+    string findOrder(string dict[], int N, int K) {
         //code here
-        unordered_map<int,int>vis;
-        unordered_map<int,list<int>>mp;
+        
+        int vis[26] = {0};
+        
+        unordered_map<int, list<int>>mp;
+        
         for(int i =0;i<N-1;i++){
-            string s = dic[i];
-            string k = dic[i+1];
+            string s = dict[i];
+            string k = dict[i+1];
             
-            int x =0,y=0;
-            while(x < s.size() && y<k.size()){
+            int x =0, y=0;
+            while(x < s.size() && y < k.size()){
                 if(s[x] != k[y]) break;
                 x++;
                 y++;
             }
-            if(x < s.size() && y<k.size()){
+            if(x < s.size() && y < k.size()){
                 mp[s[x]-'a'].push_back(k[y]-'a');
             }
         }
         vector<int>temp;
         for(int i =0;i<K;i++){
             if(!vis[i]){
-                dfs(mp,vis,temp,i);
+                dfs(mp,i,vis,temp);
             }
         }
         string ans ="";
-        for(auto x : temp){
-            ans+= x+'a';
+        for(int i = 0; i < temp.size();i++){
+            ans += (temp[i]+'a');
         }
         return ans;
-        
     }
 };
 
