@@ -6,32 +6,35 @@ using namespace std;
 class Solution {
   public:
     // Function to detect cycle in an undirected graph.
-    bool isCycle(int V, vector<int> adj[]) {
+    bool isCycle(int v, vector<int> adj[]) {
         // Code here
-        unordered_map<int,int>parent;
-        unordered_map<int,bool>vis;
-        for(int i =0 ;i< V;i++){
-            if(!vis[i] ){
+        vector<bool>vis(v,0);
+        vector<int>parent(v,-1);
+        
+        for(int i =0;i<v;i++){
+            if(!vis[i]){
                 queue<int>q;
                 q.push(i);
-                vis[i] = true;
-                parent[i] = -1;
+                vis[i] = 1;
+                
                 while(!q.empty()){
                     int front = q.front();
                     q.pop();
-                    for(auto nbr : adj[front]){
-                        if(vis[nbr] && nbr != parent[front]){
+                    
+                    for(auto x : adj[front]){
+                        if(vis[x] && x != parent[front]){
                             return true;
-                        }else if(!vis[nbr]){
-                            vis[nbr] = true;
-                            parent[nbr] = front;
-                            q.push(nbr);
+                        }else if(!vis[x]){
+                            vis[x] =1;
+                            q.push(x);
+                            parent[x] = front;
                         }
                     }
                 }
             }
         }
         return false;
+        
     }
 };
 
