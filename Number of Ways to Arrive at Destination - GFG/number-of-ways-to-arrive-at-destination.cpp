@@ -12,7 +12,7 @@ class Solution {
         int mod = 1e9+7;
         vector<pair<int,int>>dist(n,{INT_MAX,0});
         //value,count
-        dist[0] = {0,0};
+        dist[0] = {0,1};
         unordered_map<int,list<pair<int,int>>>mp;
         
         for(int i =0;i<roads.size();i++){
@@ -24,24 +24,24 @@ class Solution {
         }
         
         priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>pq;
-        pq.push({0,0});
+        pq.push({0,0}); // dist,node
         
         while(!pq.empty()){
-            int front = pq.top().first;
-            int dis = pq.top().second;
+            int node = pq.top().second;
+            int dis = pq.top().first;
             pq.pop();
-            for(auto x : mp[front]){
-                int node = x.first;
+            for(auto x : mp[node]){
+                int destination = x.first;
                 int cost = x.second;
-                if(dist[node].first == cost + dis){
-                    dist[node].second = (1%mod + dist[node].second%mod)%mod;
-                     pq.push({node,dist[node].first});
+                
+                if(cost + dis == dist[destination].first){
+                    dist[destination].second = (dist[destination].second%mod + dist[node].second%mod)%mod;
                 }
                 
-                if(dist[node].first > cost + dis){
-                    dist[node].second = 1;
-                    dist[node].first = cost + dis;
-                    pq.push({node,dist[node].first});
+                if(cost + dis < dist[destination].first){
+                    dist[destination].second = dist[node].second;
+                    dist[destination].first = cost + dis;
+                    pq.push({dist[destination].first,destination});
                 }
             }
         }
