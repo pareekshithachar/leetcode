@@ -18,20 +18,44 @@ class Solution{
         //code here   
         long long res = 1;
         vector<int>zeros;
-        for(int i =0;i<nums.size();i++){
-            if(nums[i] == 0){
-                zeros.push_back(i);
+        vector<long long int> ans(n,0);
+        vector<long long >left(n,1);
+        vector<long long> right(n,1);
+        for(int i =1;i<nums.size();i++){
+            if(nums[i-1] == 0){
+                zeros.push_back(i-1);
                 continue;
             }
-            res*=nums[i];
+            res*=nums[i-1];
+            left[i] = res;
+            
         }
-        vector<long long int> ans(n,0);
+        if(nums[n-1]==0) zeros.push_back(n-1);
+        res = 1;
         if(zeros.size() > 1) return ans;
         
-        for(int i =0;i<nums.size();i++){
-            if((zeros.size() == 1 && nums[i] == 0) || zeros.size()==0){
-                ans[i] = res/(nums[i]==0?1:nums[i]);
+        if(n == 2 && zeros.size() == 1){
+            
+            return {nums[1],nums[0]};
+            
+            
+        }
+        for(int i =n-2;i>=0;i--){
+            if(nums[i+1] == 0){
+                continue;
             }
+            res*=nums[i+1];
+            right[i] = res;
+        }
+        
+        
+        
+        for(int i =0;i<nums.size();i++){
+            if(nums[i] == 0 || zeros.size() == 0){
+                ans[i] = left[i]*right[i];
+            }
+
+            
         }
         return ans;
     }
